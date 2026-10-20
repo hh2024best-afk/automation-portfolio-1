@@ -1,0 +1,102 @@
+{
+  "name": "W1D2 - HTTP GET GitHub API",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f4e48b4b-3ab1-40fc-bea4-70a193c0bb8b",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/n8n-io/n8n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "f2c43ab2-3429-4826-85c8-a1add7ed979b",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fafddcc8-8ab7-4905-a90b-a7a5f6a178ac",
+              "name": "full_name ",
+              "value": "={{ $json.full_name }} ",
+              "type": "string"
+            },
+            {
+              "id": "66b65e6a-e06d-4131-bfc4-1dec2f89969a",
+              "name": "stars",
+              "value": "={{ $json.stargazers_count }}",
+              "type": "number"
+            },
+            {
+              "id": "a4e829e6-1781-4de3-82d8-e1d0b8a172ee",
+              "name": "open_issues",
+              "value": "={{ $json.open_issues_count }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        448,
+        0
+      ],
+      "id": "e9bd393a-bd22-43ae-a14b-2706e63d79a0",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a05b97c9-c2f5-4954-9c87-6ad846a66ee5",
+  "meta": {
+    "instanceId": "3002dd8ca53ae7d09f0530fb2e3a8eb06fd9f674904bbfb7c5d41e615aca775f"
+  },
+  "nodeGroups": [],
+  "id": "jTHa3ZFBX9OTZYgu",
+  "tags": []
+}
